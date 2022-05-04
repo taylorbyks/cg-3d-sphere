@@ -22,15 +22,16 @@
 
 - [ ] Selecionar o tipo de projeção (projeção paralela axonométrica ou em projeção perspectiva)
 - [ ] Informar parametros da camera (VRP, P, vetor view-up, tipo de projeção, distância aos planos Near, Far e plano de projeção)
-- [ ] Definir limites do mundo
+- [x] Definir limites do mundo
+- [ ] Aplicar regras com os limites do mundo
 - [ ] Definir limites do plano de projeção
 - [ ] Mostrar a direção dos eixos principais do SRU
 
 ### Requisito 5 - 30 pontos
 
-- [ ] Sombreamento constante
-- [ ] Sombreamento Gouraud
-- [ ] Sombreamento Phong simplificado
+- [x] Sombreamento constante
+- [x] Sombreamento Gouraud
+- [x] Sombreamento Phong simplificado
 
 ### Requisito 6 - 15 pontos
 

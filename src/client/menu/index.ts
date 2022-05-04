@@ -1,6 +1,6 @@
 import { GUI } from 'dat.gui'
-import { axios, grid } from '../const'
-import { cleanSpheres, addSphere, updateGrid } from '../utils'
+import { axios, grid, light } from '../const'
+import { cleanSpheres, addSphere, updateGrid, updateLight } from '../utils'
 
 export const gui = new GUI()
 export const spheresFolder = gui.addFolder('Spheres')
@@ -18,9 +18,9 @@ spheresFolder.add(
   'Add',
 )
 const worldFolder = gui.addFolder('World Limits')
-worldFolder.add(axios, 'x')
-worldFolder.add(axios, 'y')
-worldFolder.add(axios, 'z')
+worldFolder.add(axios, 'x', 1)
+worldFolder.add(axios, 'y', 1)
+worldFolder.add(axios, 'z', 1)
 const gridFolder = worldFolder.addFolder('Grid')
 gridFolder.add(grid, 'size', 1).onChange(updateGrid)
 gridFolder.add(grid, 'divisions', 2).onChange(updateGrid)
@@ -34,6 +34,23 @@ gridFolder.add(
 gridFolder.add(
   {
     Show: updateGrid,
+  },
+  'Show',
+)
+const lightFolder = gui.addFolder('Light')
+lightFolder.addColor(light, 'color').onChange(updateLight)
+lightFolder.add(light, 'x', -axios.x, axios.x).onChange(updateLight)
+lightFolder.add(light, 'y', -axios.y, axios.y).onChange(updateLight)
+lightFolder.add(light, 'z', -axios.z, axios.z).onChange(updateLight)
+lightFolder.add(
+  {
+    Hide: () => updateLight(false),
+  },
+  'Hide',
+)
+lightFolder.add(
+  {
+    Show: updateLight,
   },
   'Show',
 )

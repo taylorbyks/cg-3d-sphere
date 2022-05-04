@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { axios, grid, scene, spheres } from '../const'
+import { axios, grid, light, scene, spheres } from '../const'
 import { spheresFolder } from '../menu'
 import { SphereProps, GuiFolder } from '../types'
 
@@ -19,7 +19,6 @@ function createMaterial(material?: any) {
     material instanceof THREE.MeshPhongMaterial ||
     material instanceof THREE.MeshLambertMaterial
   ) {
-    console.log('material is a MeshBasicMaterial')
     return material
   }
 
@@ -56,6 +55,18 @@ export function render(
   renderer.render(scene, camera)
 }
 
+export function updateLight(active = true) {
+  const oldLight = scene.children.findIndex(
+    child => child.type === 'PointLight',
+  )
+  scene.remove(scene.children[oldLight])
+  if (active) {
+    const newPointLight = new THREE.PointLight(light.color, 1, 100000)
+    newPointLight.position.set(light.x, light.y, light.z)
+    scene.add(newPointLight)
+  }
+}
+
 export function updateGrid(active = true) {
   const oldGridIndex = scene.children.findIndex(
     child => child.type === 'GridHelper',
@@ -86,8 +97,7 @@ export function cleanSpheres() {
 
 export function addSphere() {
   const materialProp = {
-    color: 0xffffff,
-    wireframe: true,
+    color: 0xff,
   }
   var material = new THREE.MeshBasicMaterial(materialProp)
 
@@ -134,12 +144,40 @@ export function addSphere() {
     {
       Gouraud: () => {
         sphere.material.dispose()
-        console.log(sphere.material, materialProp)
-        material = new THREE.MeshLambertMaterial(materialProp)
+        material = new THREE.MeshLambertMaterial({
+          color: sphere.material.color,
+          wireframe: sphere.material.wireframe,
+        })
         sphere.material = material
       },
     },
     'Gouraud',
+  )
+  materialFolder.add(
+    {
+      Phong: () => {
+        sphere.material.dispose()
+        material = new THREE.MeshPhongMaterial({
+          color: sphere.material.color,
+          wireframe: sphere.material.wireframe,
+        })
+        sphere.material = material
+      },
+    },
+    'Phong',
+  )
+  materialFolder.add(
+    {
+      Constant: () => {
+        sphere.material.dispose()
+        material = new THREE.MeshBasicMaterial({
+          color: sphere.material.color,
+          wireframe: sphere.material.wireframe,
+        })
+        sphere.material = material
+      },
+    },
+    'Constant',
   )
   materialFolder.add(
     {
