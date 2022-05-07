@@ -1,11 +1,12 @@
 import * as THREE from 'three'
 import { axios, grid, light, scene, spheres } from '../const'
+import { Sphere } from '../geometry/sphere'
 import { spheresFolder } from '../menu'
 import { SphereProps, GuiFolder } from '../types'
 
 function createEmptyMesh() {
   return new THREE.Mesh(
-    new THREE.SphereGeometry(),
+    new Sphere(),
     new THREE.MeshBasicMaterial({
       transparent: true,
       opacity: 0,
@@ -26,24 +27,19 @@ function createMaterial(material?: any) {
 }
 
 function createSphere(
-  { radius, widthSegments, heightSegments }: SphereProps,
+  { radius, meridians, parallels }: SphereProps,
   materialProp: THREE.MeshBasicMaterialParameters | THREE.MeshBasicMaterial,
 ) {
   const material = createMaterial(materialProp)
-  const geometry = new THREE.SphereGeometry(
-    radius,
-    widthSegments,
-    heightSegments,
-  )
+  const geometry = new Sphere(radius, meridians, parallels)
   return new THREE.Mesh(geometry, material)
 }
 
 function updateGeometry(
-  parent: THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial>,
+  parent: THREE.Mesh<Sphere, THREE.MeshBasicMaterial>,
   SphereProps: SphereProps,
 ) {
   const material = (parent.children[0] as any).material
-  console.log(material)
   parent.remove(parent.children[0])
   parent.add(createSphere(SphereProps, material))
 }
@@ -105,8 +101,8 @@ export function addSphere() {
   var sphere = createSphere(
     {
       radius: 1,
-      widthSegments: 32,
-      heightSegments: 16,
+      meridians: 32,
+      parallels: 16,
     },
     material,
   )
@@ -128,11 +124,11 @@ export function addSphere() {
     .add(mesh.geometry.parameters, 'radius', 1, 30)
     .onChange(() => updateGeometry(mesh, mesh.geometry.parameters))
   sphereFolder
-    .add(mesh.geometry.parameters, 'widthSegments', 3, 64)
+    .add(mesh.geometry.parameters, 'meridians', 3, 64)
     .step(1)
     .onChange(() => updateGeometry(mesh, mesh.geometry.parameters))
   sphereFolder
-    .add(mesh.geometry.parameters, 'heightSegments', 2, 32)
+    .add(mesh.geometry.parameters, 'parallels', 2, 32)
     .step(1)
     .onChange(() => updateGeometry(mesh, mesh.geometry.parameters))
   const materialFolder = sphereFolder.addFolder('Material')
@@ -182,7 +178,14 @@ export function addSphere() {
   materialFolder.add(
     {
       Wireframe: () => {
-        material.wireframe = !sphere.material.wireframe
+        sphere.material.dispose()
+        material = new THREE.MeshBasicMaterial({
+          color: sphere.material.color,
+          wireframe: !sphere.material.wireframe,
+        })
+        sphere.material = material
+
+        // material.wireframe = !sphere.material.wireframe
       },
     },
     'Wireframe',

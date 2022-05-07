@@ -6,6 +6,6 @@ export type GuiFolder = {
 
 export type SphereProps = {
   radius: number
-  widthSegments: number
-  heightSegments: number
+  meridians: number
+  parallels: number
 }
