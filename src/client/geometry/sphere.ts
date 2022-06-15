@@ -15,21 +15,15 @@ export class Sphere extends BufferGeometry {
     const vertex = new Vector3()
     const normal = new Vector3()
 
-    // buffers
-
     const indices = []
     const vertices = []
     const normals = []
     const uvs = []
 
-    // generate vertices, normals and uvs
-
     for (let iy = 0; iy <= parallels; iy++) {
       const verticesRow = []
 
       const v = iy / parallels
-
-      // special case for the poles
 
       let uOffset = 0
 
@@ -42,20 +36,14 @@ export class Sphere extends BufferGeometry {
       for (let ix = 0; ix <= meridians; ix++) {
         const u = ix / meridians
 
-        // vertex
-
         vertex.x = -radius * Math.cos(u * Math.PI * 2) * Math.sin(v * Math.PI)
         vertex.y = radius * Math.cos(v * Math.PI)
         vertex.z = radius * Math.sin(u * Math.PI * 2) * Math.sin(v * Math.PI)
 
         vertices.push(vertex.x, vertex.y, vertex.z)
 
-        // normal
-
         normal.copy(vertex).normalize()
         normals.push(normal.x, normal.y, normal.z)
-
-        // uv
 
         uvs.push(u + uOffset, 1 - v)
 
@@ -64,8 +52,6 @@ export class Sphere extends BufferGeometry {
 
       grid.push(verticesRow)
     }
-
-    // indices
 
     for (let iy = 0; iy < parallels; iy++) {
       for (let ix = 0; ix < meridians; ix++) {
@@ -78,8 +64,6 @@ export class Sphere extends BufferGeometry {
         if (iy !== parallels - 1) indices.push(b, c, d)
       }
     }
-
-    // build geometry
 
     this.parameters = {
       radius,
