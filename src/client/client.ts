@@ -22,7 +22,7 @@ function onWindowResize() {
   }
   camera.updateProjectionMatrix()
   renderer.setSize(width, height)
-  render(renderer, camera)
+  render(renderer, camera as any)
 }
 window.addEventListener('keydown', function (event: KeyboardEvent) {
   switch (event.key) {
@@ -44,7 +44,7 @@ window.addEventListener('keydown', function (event: KeyboardEvent) {
 function animate() {
   requestAnimationFrame(animate)
   controls.update()
-  render(renderer, camera)
+  render(renderer, camera as any)
   stats.update()
 }
 
