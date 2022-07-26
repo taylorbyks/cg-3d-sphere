@@ -1,43 +1,24 @@
-## TODO
+## Trabalho Final CG
 
-### Requisito 3 - 15 pontos
+### Taylor Byk
+### Gabriel Ramos
 
-- [x] Selecionar objeto
-- [x] Translação
-- [x] Rotação
-- [x] Escala
+### Requisitos
 
-### Requisito 1 - 10 pontos
+É necessário ter o NodeJS instalado:
+https://nodejs.org/en/download/
 
-- [x] Inserir esfera
-- [x] Raio
-- [x] Meridianos
-- [x] Paralelos
+### Instruções 
 
-### Requisito 2 - 5 pontos
+Para o executar o projeto é necessário instalar suas dependências, executando o comando "npm install" em sua pasta raíz.
 
-- [x] Limpar a cena
+Após instalar as dependências, ainda na pasta raíz para executar é necessário rodar o comando "npm start"
 
-### Requisito 4 - 20 pontos
+O projeto programa poderá ser usado pelo navegador na URL http://localhost:8080/
 
-- [ ] Selecionar o tipo de projeção (projeção paralela axonométrica ou em projeção perspectiva)
-- [ ] Informar parametros da camera (VRP, P, vetor view-up, tipo de projeção, distância aos planos Near, Far e plano de projeção)
-- [x] Definir limites do mundo
-- [ ] Aplicar regras com os limites do mundo
-- [ ] Definir limites do plano de projeção
-- [ ] Mostrar a direção dos eixos principais do SRU
+### Observações
 
-### Requisito 5 - 30 pontos
+Caso as dependências causem algum problema na execução uma possível solução é excluir a pasta "node_modules" e então rodar novamente o comando "npm install".
 
-- [x] Sombreamento constante
-- [x] Sombreamento Gouraud
-- [x] Sombreamento Phong simplificado
-
-### Requisito 6 - 15 pontos
-
-- [ ] Editar parametros na cena
-- [x] Mover a câmera
-- [ ] Tipo de projeção
-- [ ] Propriedades das fontes luminosas – ambiente e pontual
-- [ ] Parâmetros dos materiais aplicados a cada um dos objetos – Ka, Kd, Ks e n
-- [ ] Parâmetros das fontes luminosas e dos materiais vinculados aos objetos devem ser definidos em tuplas em consonância com o sistema de cores RGB
+O projeto também pode ser rodado diretamente por este link sem precisar executar localmente:
+https://taylorbyks.github.io/cg-3d-sphere/
