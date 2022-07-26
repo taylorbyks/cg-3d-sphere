@@ -18,8 +18,6 @@ export const light = {
   y: 25,
   z: 25,
 }
-
-
 export const spheres = new THREE.Group()
 export const scene = new THREE.Scene()
 const pointLight = new THREE.PointLight(light.color, 1, 100000)
@@ -28,5 +26,3 @@ scene.autoUpdate = true
 scene.add(new THREE.GridHelper(grid.size, grid.divisions, grid.color))
 scene.add(pointLight)
 scene.add(spheres)
-const axesHelper = new THREE.AxesHelper( 50 );
-scene.add( axesHelper );
